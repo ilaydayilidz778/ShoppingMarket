@@ -1,0 +1,42 @@
+﻿@using MvcSupreMarketCrudveResimEkleme.Data.Class
+@using System.Globalization
+@{
+    ViewBag.Title = "Ürün Silme Formu";
+}
+@model Urun
+
+<h1>@ViewBag.Title</h1>
+<form asp-controller="Market" asp-action="Sil" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün Id</th>
+                <th>Ürün Kategorisi</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Fiyatı</th>
+                <th>Ürün Görseli</th>
+                <th>Ürün Stok Durumu</th>
+                <th>Ürün Stok Adedi</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Kategori.Ad</td>
+                <td>@Model.Ad</td>
+                <td>@Model.Fiyat.ToString("C2", new CultureInfo("tr-TR"))</td>
+                <td><img src="@Model.Resim alt=@Model.Ad class="w-100" /></td>
+                <td>
+                    @(Model.StotkataMi
+                        ? "Evet"
+                        : "Hayır")
+                </td>
+                <td>@Model.StokMiktari</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Yukarıda bilgileri verilen <strong>@Model.Ad</strong>  adlı ürünü silme istediğinizden emin misiniz?</p>
+    <button type="submit" class="btn btn-primary">Evet,Sil</button>
+    <button asp-controller="Market" asp-action="Listele" class="btn btn-secondary">İptal</button>
+</form>

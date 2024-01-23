@@ -1,0 +1,64 @@
+﻿@using MvcSupreMarketCrudveResimEkleme.Data.Class
+@using System.Globalization
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+
+    .urun-gorseli {
+        max-width: 100px; 
+        max-height: 100px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto; 
+    }
+</style>
+
+@{
+    ViewBag.Title = "Ürünler Listesi";
+}
+
+@model List<Urun>
+
+<h1>@ViewBag.Title</h1>
+
+<table class="table table-bordered">
+    <thead class="table-">
+        <tr>
+            <th>Ürün Id</th>
+            <th>Ürün Kategorisi</th>
+            <th>Ürün Adı</th>
+            <th>Ürün Fiyatı</th>
+            <th>Ürün Görseli</th>
+            <th>Ürün Stok Durumu</th>
+            <th>Ürün Stok Adedi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urun in Model)
+        {
+            <tr>
+                <td>@urun.Id</td>
+                <td>@urun.Kategori.Ad</td>
+                <td>@urun.Ad</td>
+                <td>@urun.Fiyat.ToString("C2", new CultureInfo("tr-TR"))</td>
+                <td><img src="~/images/@urun.Resim!.DosyaYolu" alt="Resim" class="urun-gorseli "></td>
+                <td>@(urun.StotkataMi 
+                    ? "Evet" 
+                    : "Hayır")
+                </td>
+                <td>@urun.StokMiktari</td>
+                <td>
+                    <a asp-controller="Market" asp-action="Guncelle" asp-route-id="@urun.Id" class="btn btn-success">Güncelle</a>
+                    <a asp-controller="Market" asp-action="Sil" asp-route-id="@urun.Id" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-controller="Market" asp-action="Ekle" class="btn btn-success">Yeni Ürün Ekle</a>
+</div>

@@ -1,0 +1,40 @@
+﻿@using MvcSupreMarketCrudveResimEkleme.Data.Class
+@{
+    ViewBag.Title = "Ürün Güncelleme Formu";
+}
+@model ResimUrunViewModel
+
+<h1>@ViewBag.Title</h1>
+
+<form asp-controller="Market" asp-action="Guncelle" method="post" enctype="multipart/form-data">
+    <div class="col-auto mb-2">
+        <label asp-for="SeciliKategoriId">Kategori Seçiniz</label>
+        <select asp-for="SeciliKategoriId" asp-items="ViewBag.Kategoriler" class="form-select" aria-label="Default select example">
+            <option value="" selected>Seçiniz</option>
+        </select>
+    </div>
+    <div class="col-auto mb-2">
+        <label asp-for="Ad">Ürün Adı Giriniz</label>
+        <input asp-for="Ad" type="text" class="form-control" placeholder="Ürün Adı Giriniz...">
+    </div>
+    <div class=" col-auto form-check mb-2">
+        <input asp-for="StotkataMi" class="form-check-input" type="checkbox" id="chcbStoktaMi">
+        <label asp-for="StotkataMi" class="form-check-label">Stokta Mı?</label>
+    </div>
+    <div class="col-auto mb-2" id="stokMiktarContainer" style="display:none;">
+        <label asp-for="StokMiktari">Stok Miktarı Giriniz?</label>
+        <input asp-for="StokMiktari" type="number" class="form-control">
+    </div>
+    @*  Resim Ekleme Kısmı *@
+    <div class="col-auto mb-3">
+        <label asp-for="Resim" class="form-label">Ürünün İçin Görsel Ekleyiniz</label>
+        <div class="d-flex align-content-between">
+            <input asp-for="Resim" class="form-control me-2" type="file">
+        </div>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3 me-auto">Güncelle</button>
+        <button asp-controller="Market" asp-action="Listele" class="btn btn-secondary mb-3 me-auto">İptal</button>
+    </div>
+</form>
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
